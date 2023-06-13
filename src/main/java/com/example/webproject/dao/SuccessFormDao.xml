@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.webproject.dao.SuccessFormDao">
+    <!-- resultType的值使用的就是配置后的别名 -->
+
+    <resultMap id="empJoinDept" type="com.example.webproject.domain.SuccessForm">
+        <!--设置emp本身的八个属性的映射关系-->
+        <id property="openid" column="openid"></id>
+        <result property="successtime" column="successtime"></result>
+        <!--
+        association 处理一对一
+        封装一对一信息关系的标签
+        property  emp类的属性名
+        javaType  用哪个类的对象给属性赋值
+        -->
+        <association property="user" javaType="com.example.webproject.domain.User">
+            <id column="openid" property="openid"></id>
+            <result column="stunum" property="stunum"></result>
+            <result column="name" property="name"></result>
+            <result column="nickname" property="nickname"></result>
+            <result column="avatarUrl" property="avatarUrl"></result>
+            <result column="totalstepsnum" property="totalstepsnum"></result>
+            <result column="todaystepsnum" property="todaystepsnum"></result>
+            <result column="timeStamp" property="timeStamp"></result>
+            <result column="partment" property="partment"></result>
+        </association>
+    </resultMap>
+    
+    <select id="selectAll" resultMap="empJoinDept">
+        select * from successInfo join user on successInfo.openid = user.openid
+    </select>
+
+</mapper>
